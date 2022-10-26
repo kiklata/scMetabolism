@@ -8,7 +8,7 @@
     
 
 ## Install
-    devtools::install_github("wu-yc/scMetabolism")
+    devtools::install_github("kiklata/scMetabolism")
 
 ## Quick Start
 `scMetabolism` generally supports the quantification and visualization of metabolism at the single-cell resolution. 
