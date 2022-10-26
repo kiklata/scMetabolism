@@ -88,7 +88,7 @@ sc.metabolism.Seurat <- function(obj, method = "VISION", imputation = F, ncores 
   }
 
   obj@assays$METABOLISM$score<-signature_exp
-  return obj
+  obj
 }
 
 
