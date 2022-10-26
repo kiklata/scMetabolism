@@ -12,7 +12,7 @@ sc.metabolism.Seurat <- function(obj, method = "VISION", imputation = F, ncores 
 
   countexp<-obj@assays$RNA@counts
 
-  countexp<-data.frame(as.matrix(countexp))
+  countexp<-as.matrix(countexp)
 
   #signatures_KEGG_metab <- "./data/KEGG_metabolism_nc.gmt"
   #signatures_REACTOME_metab <- "./data/REACTOME_metabolism.gmt"
