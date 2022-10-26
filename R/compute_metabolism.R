@@ -79,5 +79,5 @@ sc.metabolism <- function(countexp, method = "VISION", imputation = F, ncores = 
     gsva_es <- gsva(as.matrix(countexp2), geneSets, method=c("gsva"), kcdf=c("Poisson"), parallel.sz=ncores) #
     signature_exp<-as.data.frame(gsva_es)
   }
-return signature_exp
+signature_exp
 }
