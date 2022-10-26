@@ -86,7 +86,7 @@ sc.metabolism.Seurat <- function(obj, method = "VISION", imputation = F, ncores 
     gsva_es <- gsva(as.matrix(countexp2), geneSets, method=c("gsva"), kcdf=c("Poisson"), parallel.sz=ncores) #
     signature_exp<-as.data.frame(gsva_es)
   }
-
+  print('invalid method')
   obj@assays$METABOLISM$score<-signature_exp
   obj
 }
