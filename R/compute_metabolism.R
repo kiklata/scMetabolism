@@ -49,7 +49,7 @@ sc.metabolism <- function(countexp, method = "VISION", imputation = F, ncores = 
 
     vis <- analyze(vis)
 
-    signature_exp<-data.frame(t(vis@SigScores))
+    signature_exp<-as.data.frame(t(vis@SigScores))
   }
 
   #AUCell
@@ -59,7 +59,7 @@ sc.metabolism <- function(countexp, method = "VISION", imputation = F, ncores = 
     cells_rankings <- AUCell_buildRankings(as.matrix(countexp2), nCores=ncores, plotStats=F) #rank
     geneSets <- getGmt(gmtFile) #signature read
     cells_AUC <- AUCell_calcAUC(geneSets, cells_rankings) #calc
-    signature_exp <- data.frame(getAUC(cells_AUC))
+    signature_exp <- as.data.frame(getAUC(cells_AUC))
   }
 
   #ssGSEA
@@ -68,7 +68,7 @@ sc.metabolism <- function(countexp, method = "VISION", imputation = F, ncores = 
     library(GSEABase)
     geneSets <- getGmt(gmtFile) #signature read
     gsva_es <- gsva(as.matrix(countexp2), geneSets, method=c("ssgsea"), kcdf=c("Poisson"), parallel.sz=ncores) #
-    signature_exp<-data.frame(gsva_es)
+    signature_exp<-as.data.frame(gsva_es)
   }
 
   #GSVA
@@ -77,8 +77,7 @@ sc.metabolism <- function(countexp, method = "VISION", imputation = F, ncores = 
     library(GSEABase)
     geneSets <- getGmt(gmtFile) #signature read
     gsva_es <- gsva(as.matrix(countexp2), geneSets, method=c("gsva"), kcdf=c("Poisson"), parallel.sz=ncores) #
-    signature_exp<-data.frame(gsva_es)
+    signature_exp<-as.data.frame(gsva_es)
   }
-
-  signature_exp
+return signature_exp
 }
