@@ -26,7 +26,7 @@ sc.metabolism.Seurat <- function(obj, method = "VISION", imputation = F, ncores 
   if (imputation == F) {
     countexp2<-countexp
   }
-  if (imputation == T) {
+  else if (imputation == T) {
 
     cat("Start imputation...\n")
 
@@ -58,7 +58,7 @@ sc.metabolism.Seurat <- function(obj, method = "VISION", imputation = F, ncores 
   }
 
   #AUCell
-  if (method == "AUCell") {
+  else if (method == "AUCell") {
     library(AUCell)
     library(GSEABase)
     cells_rankings <- AUCell_buildRankings(as.matrix(countexp2), nCores=ncores, plotStats=F) #rank
@@ -68,23 +68,22 @@ sc.metabolism.Seurat <- function(obj, method = "VISION", imputation = F, ncores 
   }
 
   #ssGSEA
-  if (method == "ssGSEA") {
+  else if (method == "ssGSEA") {
     library(GSVA)
     library(GSEABase)
     geneSets <- getGmt(gmtFile) #signature read
-    gsva_es <- gsva(as.matrix(countexp2), geneSets, method=c("ssgsea"), kcdf=c("Poisson"), parallel.sz=ncores) #
+    gsva_es <- gsva(as.matrix(countexp2), min.sz = 3,geneSets, method=c("ssgsea"), kcdf=c("Poisson"), parallel.sz=ncores) #
     signature_exp<-as.matrix(gsva_es)
   }
 
   #GSVA
-  if (method == "GSVA") {
+  else if (method == "GSVA") {
     library(GSVA)
     library(GSEABase)
     geneSets <- getGmt(gmtFile) #signature read
-    gsva_es <- gsva(as.matrix(countexp2), geneSets, method=c("gsva"), kcdf=c("Poisson"), parallel.sz=ncores) #
+    gsva_es <- gsva(as.matrix(countexp2), min.sz = 3,geneSets, method=c("gsva"), kcdf=c("Poisson"), parallel.sz=ncores) #
     signature_exp<-as.matrix(gsva_es)
-  }
-  else{print('invalid method')}
+  }else{print('invalid method')}
   obj@assays$METABOLISM$score<-signature_exp
   obj
 }
